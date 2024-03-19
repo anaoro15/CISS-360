@@ -1,0 +1,53 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 04-01}
+
+\begin{document}
+\topmatter
+
+Q1. Either 
+
+(a) Write Doom 3 in MIPS 
+
+or
+
+(b) Write a MIPS program that gets integers $x, y, z$ 
+from the user and if $x$ is 0, 
+store $y, z, y + z$ in the data segment 
+(starting at the first of course). 
+Otherwise store $y, z, y - z$.
+
+Do NOT hardcode memory addresses -- use labels.
+You will need to use the the if-else method of writing MIPS code in my notes and several versions were mentioned.
+You MUST use the correct version that I mentioned in the notes and in class.
+
+TEST 1 \\
+Console:
+\begin{console}
+0
+2
+3
+\end{console}
+Data segment:
+\begin{console}
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000002 0x00000003 0x00000005 0x00000000
+\end{console}
+ 
+TEST 2 \\
+Console:
+\begin{console}
+5
+4
+1
+\end{console}
+Data segment:
+\begin{console}
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000004 0x00000001 0x00000003 0x00000000
+\end{console}
+
+\end{document}

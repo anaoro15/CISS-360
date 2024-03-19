@@ -1,0 +1,69 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Write a MIPS program gets a string from the user 
+(assume a maximum length of 100), store the string in the data segment, 
+for each character in the data segment, if the character is a lowercase 
+letter, it is replaced by its uppercase. 
+Finally the program prints the resulting string in the data segment.
+
+Test the following inputs: 
+\verb!"hello world", "hello World", "helLO 123 world"!
+
+\ANSWER
+\begin{answercode}
+        .text
+        .globl main
+main:
+        # get input from the user
+        li      $v0, 8   # syscall for reading string
+        la      $a0, input_string
+        li      $a1, 100 # maximum length for the string
+        syscall
+
+        # copy the input string to result_string
+        la     $t0, input_string   # load address of input string in t0
+        la     $t1, result_string   # load address of result string in t1
+
+copy_loop:
+        lb     $t2, 0($t0)   # load byte from input_String
+        beq    $t2, $zero, print_result
+
+        # check if the character is a lowercase letter and convert to uppercase
+        li      $t3, 97      # ascii value for 'a'
+        li      $t4, 122     # ascii value for 'z'
+        blt     $t2, $t3, not_lowercase
+        bgt     $t2, $t4, not_lowercase
+
+        # converting
+        sub     $t2, $t2, 32    # subtract 32 to convert to uppercase
+
+not_lowercase:
+        sb      $t2, 0($t1)    # store character in result_string
+        addi    $t0, $t0, 1    # move to the next character in input_string
+        addi    $t1, $t1, 1    # move to the next character in result_string
+        j       copy_loop
+
+print_result:
+        li      $v0, 4
+        la      $a0, result_string
+        syscall
+
+        li      $v0, 10
+        syscall
+
+        .data
+input_string: .space 100   # allocate space for input string
+result_string: .space 100  # allocate space for result string
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

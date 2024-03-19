@@ -1,0 +1,24 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 8A}
+
+\begin{document}
+\topmatter
+
+Q1. 
+Write a MIPS program gets a string x from the user 
+(assume a maximum length of 100), 
+store the string in the data segment, 
+get an integer $i$ from the user, and print the ASCII code 
+(an integer value) of the $i$-th character of $x$. 
+(Note: The index starts with 0. 
+So if $i$ is 1, 
+I mean the second character of $x$.)
+
+Email me ({\tt yliow@ccis.edu}) 
+your code as an attachment. 
+The subject line of your email should be like this:
+{\tt ciss360 Alan Turing q08a}.
+
+\end{document}

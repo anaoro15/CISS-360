@@ -1,0 +1,46 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{jdoe5@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Name the 5 components of the computer
+(write the 5 components separated by commas).
+\\
+\ANSWER
+\begin{answerlong}
+
+\end{answerlong}
+
+%------------------------------------------------------------------------------
+\nextq
+\tf:
+Each pseudoinstruction corresponds to exactly one instruction.
+
+\dotfill\answerbox{ }
+
+%------------------------------------------------------------------------------
+\nextq
+\tf:
+Each instruction corresponds to exactly one machine code.
+\dotfill\answerbox{ }
+
+%------------------------------------------------------------------------------
+\nextq
+\tf:
+An ISA that implements a load/store architecture allows operations on the
+contents at two different memory locations.
+\dotfill\answerbox{ }
+
+%------------------------------------------------------------------------------
+\nextq
+ISA stands for
+\answerbox{ }.
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

@@ -1,0 +1,55 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 04-02}
+
+\begin{document}
+\topmatter
+
+Q1. Write a MIPS program that gets integers 
+$x$ and $y$ from the user. 
+If $x$ is 1,  
+the program stores $x$, $y$, $2y$ in the data segment 
+(starting at the first of course). 
+Otherwise it stores $x$, $y$, $3y$ instead.
+
+You have 8 minutes.
+
+Instruction for submission:
+\begin{tightlist}
+\li The filename must end with \verb!.s!.
+\li You must email your file to \verb!yliow.submit@gmail.com!.
+\li The subject line must be \verb!ciss360 q04-02!.
+\li You must email from your college email account \verb!*@cougars.ccis.edu!.
+\end{tightlist}
+
+TEST 1 \\
+Console:
+\begin{console}
+1
+2
+\end{console}
+Data segment:
+\begin{console}
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000001  0x00000002  0x00000004  0x00000000
+[0x10010010]...[0x10040000]  0x00000000
+\end{console}
+
+TEST 2 \\
+Console:
+\begin{console}
+2
+3
+\end{console}
+Data segment:
+\begin{console}
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000002  0x00000003  0x00000009  0x00000000
+[0x10010010]...[0x10040000]  0x00000000
+\end{console}
+
+
+\end{document}

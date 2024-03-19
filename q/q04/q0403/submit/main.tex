@@ -1,0 +1,66 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Write a MIPS program that continually gets integers from the user and stores 
+the running sum in the data segment. 
+The program terminates when the user enters 0. 
+For instance if the user enters 1, 5, 2, 0 the program stores 
+the following numbers in the data segment:
+\[
+	1, 6, 8
+\]
+Note that of course the user can enter more than 4 integers.
+
+
+\textsc{Test 1} \\
+Console:
+\begin{console}[fontsize=\footnotesize,commandchars=\\\{\}]
+\underline{1}
+\underline{5}
+\underline{2}
+\underline{0}
+\end{console}
+Data segment:
+\begin{console}[fontsize=\footnotesize,commandchars=\\\{\}]
+	DATA
+[0x10000000]...[0x10010004]  0x00000000
+[0x10010004]                 0x00000001  0x00000006  0x00000008
+[0x10010010]...[0x10040000]  0x00000000
+\end{console}
+\ANSWER
+\begin{answercode}
+
+        .text
+        .globl main
+
+main:   li     $s0, 0      # initialize sum = 0
+        la     $s1, running_sums
+        
+loop:   li     $v0, 5
+        syscall
+        move   $t1, $v0    # store x in t1
+        
+        beq    $t1, $zero, terminate
+        add    $s0, $t1, $s0    # s = s + x
+        sw     $s0, 0($s1)
+
+        addi    $s1, $s1, 4    # move to the next element in data segment
+        j      loop
+terminate:
+        li     $v0, 10
+        syscall
+
+        .data
+running_sums: .word 0
+space:      .asciiz " "
+\end{answercode}
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

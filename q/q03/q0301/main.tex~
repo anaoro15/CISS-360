@@ -1,0 +1,44 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 4A}
+
+\begin{document}
+\topmatter
+
+
+
+
+Q1.
+The following MIPS program allocates an integer (a word) value of 19 in the 
+data segment
+
+\begin{Verbatim}[frame=single, commandchars=\\\{\}]
+          .text
+          .globl main
+
+  main:   li      $v0, 10
+          syscall
+
+          .data
+\drawbox{6.1}{0.4}
+\end{Verbatim}
+
+
+\mbox{}\\
+
+Q2. The fastest memory elements in the following is 
+\underline{\,\,\,\,\,\,\,\,\,\,\,\,\,}.
+\begin{itemize}
+\item[(a)] storage
+\item[(b)] registers
+\item[(c)] memory (as in RAM)
+\item[(d)] datapath
+\item[(e)] Dr. Liow's brain [nevermind ... ignore option (e)]
+\item[(f)] none of the above
+\end{itemize}
+
+ANSWER: \drawbox{0.5}{0.25}
+
+
+\end{document}

@@ -1,0 +1,39 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{jdoe5@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+
+\nextq
+The following MIPS program puts an integer (a word) value of 19
+at the first address in the data segment.
+\\
+\ANSWER
+\begin{answercode}
+        .text
+        .globl main
+
+main:   li      $v0, 10
+        syscall
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\nextq
+The fastest memory elements in the following is 
+\underline{\,\,\,\,\,\,\,\,\,\,\,\,\,}.
+\begin{itemize}
+\item[(A)] storage
+\item[(B)] registers
+\item[(C)] memory (as in RAM)
+\item[(D)] datapath
+\item[(E)] CPU cache
+\end{itemize}
+\textsc{Answer:}\dotfill
+\answerbox{ }
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

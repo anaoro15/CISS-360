@@ -1,0 +1,39 @@
+s\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+
+Here is a piece of MIPS program:
+\begin{console}
+li     $s0, 1
+li     $t0, 2
+add    $s0, $s0, $s0
+add    $s1, $s0, $t0
+\end{console}
+
+%------------------------------------------------------------------------------
+
+\nextq
+What is the value of \verb!$s0! at the end of the above code?
+\answerbox{2}
+
+%------------------------------------------------------------------------------
+
+\nextq
+What is the value of \verb!$s1! at the end of the above code?
+\answerbox{4}
+
+%------------------------------------------------------------------------------
+
+\nextq
+What is the value of \verb!$t0! at the end of the above code?
+\answerbox{2}
+
+%------------------------------------------------------------------------------
+
+\newpage
+\input{instructions.tex}
+\end{document}

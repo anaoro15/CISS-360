@@ -1,0 +1,76 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+The following program should print the following:
+\begin{console}[fontsize=\footnotesize]
+in f ... in g ... out g ... out f ...
+\end{console}
+But it doesn't.
+Run it and you'll see that it has an infinite loop.
+(You can single-step through the program and watch which chunk of instructions
+are continually executed; you can also watch the \verb!$PC!.) 
+\\
+\ANSWER
+\begin{answercode}
+#################################################################
+#                                                               #
+# text segment                                                  #
+#                                                               #
+#################################################################
+        .text
+        .globl main
+main:
+        jal     f               # call f
+        li      $v0, 10         # exit
+        syscall
+#----------------------------------------------------------------
+# f prints "in f ... ", calls function g, prints "out f ..."
+#----------------------------------------------------------------
+f:      addi 	$sp, $sp, -4    # adjust sp
+        sw	$ra, 0($sp)     # save ________
+        li      $v0, 4          # print "in f ..."
+        la      $a0, F_IN	
+        syscall
+        jal     g               # call g
+        li      $v0, 4          # print "out f ..."
+	la      $a0, F_OUT
+        syscall
+        lw	$ra, 0($sp)     # restore ________
+        addi	$sp, $sp, 4     # adjust sp
+        jr      $ra             # return
+#----------------------------------------------------------------
+# g prints "in g ... " and "out g ..."
+#----------------------------------------------------------------
+g:      addi 	$sp, $sp, -4    # adjust sp
+        sw	$ra, 0($sp)     # save ________
+	li      $v0, 4          # print "in g ..."
+        la      $a0, G_IN	
+        syscall
+        li      $v0, 4          # print "out g ..."
+        la      $a0, G_OUT	
+        syscall
+        lw	$ra, 0($sp)     # save ________
+	addi 	$sp, $sp, 4    # adjust sp
+   	jr      $ra             # return
+#################################################################
+#                                                               #
+# data segment                                                  #
+#                                                               #
+#################################################################
+        .data
+F_IN:   .asciiz "in f ... "
+F_OUT:  .asciiz "out f ... "
+G_IN:   .asciiz "in g ... "
+G_OUT:  .asciiz "out g ... "
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

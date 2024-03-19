@@ -1,0 +1,78 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+Q1. Write a MIPS program that gets integers $x$ and $y$ from the user. 
+If $x$ is 1,  the program stores $x$, $y$, $2y$ in the data segment 
+(starting at the beginning of course). 
+Otherwise it stores $x$, $y$, $3y$ instead.
+
+\textsc{Test 1} \\
+Console:
+\begin{console}[fontsize=\footnotesize,commandchars=\\\{\}]
+\underline{1}
+\underline{2}
+\end{console}
+Data segment:
+\begin{console}[fontsize=\footnotesize]
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000001  0x00000002  0x00000004  0x00000000
+[0x10010010]...[0x10040000]  0x00000000
+\end{console}
+
+\textsc{Test 2} \\
+Console:
+\begin{console}[fontsize=\footnotesize,commandchars=\\\{\}]
+\underline{2}
+\underline{3}
+\end{console}
+Data segment:
+\begin{console}[fontsize=\footnotesize]
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000002  0x00000003  0x00000009  0x00000000
+[0x10010010]...[0x10040000]  0x00000000
+\end{console}
+\ANSWER
+\begin{answercode}
+           .text
+           .globl main
+
+main:      la     $s0, result
+           li     $v0, 5
+           syscall
+           move   $t0,$v0          #t0 has x from input
+           sw     $t0, 0($s0)      # store x in first place 
+           li     $v0, 5
+           syscall
+           move   $t1,$v0          #t1 has y from input
+           sw     $t1, 4($s0)      # store y in second place
+           # if-else
+           li     $t3, 1
+           bne    $t3, $t0, else   # if x != 1 goto else
+           add    $t1, $t1, $t1    # t1 = 2y
+           sw     $t1, 8($s0)      # store 2y in third place
+           j      exit
+else:      move   $t2, $t1         # temp store y in t2
+           add    $t1, $t1, $t1    # t1 = 2y
+           add    $t1, $t1, $t2    # t1 = 3y
+           sw     $t1, 8($s0)      # store 3y in third place
+
+exit:      li     $v0, 1
+           lw     $a0, 8($s0)      # print result for checking
+           syscall
+           li     $v0, 10
+           syscall
+
+           .data
+result:    .word
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

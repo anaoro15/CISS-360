@@ -1,0 +1,17 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 11-01}
+
+\begin{document}
+\topmatter
+
+Q1. Complete the following SPIM program that gets two integers from the 
+user and prints the maximum:
+{\small
+\includesourcenonumbers{q11-01.s}
+}
+You must make sure that the program executes in PCSpim (of course).
+You cannot change the \verb!main! function.
+
+\end{document}

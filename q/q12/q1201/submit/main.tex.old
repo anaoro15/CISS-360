@@ -1,0 +1,59 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+The following function
+\verb!main! needs to save and restore certain registers:
+\begin{console}[frame=single,fontsize=\footnotesize]
+main:   li     $t0, 1         
+        li     $s1, 2
+        add    $a0, $s2, $s1
+        add    $t3, $t0, $s2
+        [what to save?]      
+        jal    g
+        [what to restore?]
+        mul    $s2, $t0, $v0
+        sub    $s0, $t3, $s0
+        add    $s0, $a0, $t3
+\end{console}
+What registers must be saved and restored?
+Only include the relevant ones.
+\\
+\ANSWER
+\begin{answercode}
+$s2, $t3, $t0, $a0
+\end{answercode}
+\vspace{-4mm}
+(Correct the above.)
+
+%------------------------------------------------------------------------------
+\nextq
+The following function \verb!f! needs to save and restore certain registers:
+\begin{console}[frame=single,fontsize=\footnotesize]
+f:      [what to save?]
+        add    $t0, $a0, $a0
+        add    $t1, $a0, $a1
+        add    $s0, $t0, $t1
+        sub    $s1, $s0, $t1
+        div    $s1, $s0
+        mfhi   $a0
+        add    $v0, $a0, $s1
+        [what to restore?]
+        jr     $ra
+\end{console}
+What registers must be saved and restored?
+Only include the relevant ones.
+\\
+\ANSWER
+\begin{answercode}
+$s0, $s1, $ra
+\end{answercode}
+\vspace{-4mm}
+(Correct the above.)
+
+\end{document}

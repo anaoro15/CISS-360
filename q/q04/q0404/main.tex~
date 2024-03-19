@@ -1,0 +1,48 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 04-04}
+
+\begin{document}
+\topmatter
+
+Q1. 
+Write a MIPS program that gets $n$ from the user and stores the first 
+$n + 2$ Fibonacci numbers in the data segment. 
+For instance if the user enters 3, 
+the first 3 + 2 = 5 Fibonacci stored in the numbers are 
+\[
+1, 1, 2, 3, 5
+\]
+
+Email me ({\tt yliow@ccis.edu}) your code as an attachment. 
+The subject line of your email should be like this: 
+{\tt ciss360 Edsger Dijkstra  q07d}.
+
+TEST 1\\
+Console
+\begin{console}
+3
+\end{console}
+Data segment
+\begin{console}
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000001  0x00000001  0x00000002  0x00000003
+[0x10010010]                 0x00000005  0x00000000  0x00000000  0x00000000
+\end{console}
+
+TEST 2 \\
+Console
+\begin{console}
+4
+\end{console}
+Data segment
+\begin{console}
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000001  0x00000001  0x00000002  0x00000003
+[0x10010010]                 0x00000005  0x00000008  0x00000000  0x00000000
+\end{console}
+
+\end{document}

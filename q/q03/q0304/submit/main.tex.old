@@ -1,0 +1,90 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Write a MIPS program that places the following integers in the data segment 
+(start at the beginning, starting at 0x10010000): 
+1, 2, 3, 4, 5, 6, 7, 8. 
+Create a label for the address where you have the integer 5 in the above list.
+Get an integer $x$ from the user and replace the 6 in your data segment with 
+the integer $x$. 
+In your program, do NOT hardcode any address values; you must use labels.
+
+
+\textsc{Test 1} \\
+Console:
+\begin{console}
+0
+\end{console}
+Data segment:
+{\footnotesize
+\begin{console}
+[0x10010000]		       0x00000001  0x00000002  0x00000003  0x00000004
+[0x10010010]		       0x00000005  0x00000000  0x00000007  0x00000008
+\end{console}
+}
+
+\textsc{Test 2} \\
+Console:
+\begin{console}
+9
+\end{console}
+Data segment:
+{\footnotesize
+\begin{console}
+[0x10010000]		       0x00000001  0x00000002  0x00000003  0x00000004
+[0x10010010]		       0x00000005  0x00000009  0x00000007  0x00000008
+\end{console}
+}
+
+\textsc{Answer:}
+\begin{answercode}
+		.text
+        .globl main
+
+main:   
+		la	   $t0, address_of_six    # load the address of the label into t0
+		
+        li     $v0, 5				# get x from user
+        syscall
+        sw     $v0, 0($t0)			# store it into &(t0)
+
+		# replace the value 6 with x
+		lw	   $t1, 0($t0)          # x from user is in t1
+		la	   $t2, integers		# &integers 1-8
+		li	   $v0, 1
+	    lw	   $a0, 20($t2)
+		syscall
+		
+		li	   $v0, 4
+		la     $a0, NEWLINE
+	    syscall
+		
+		sw     $t1, 20($t2)         # replace 6 with x 
+		
+		li	   $v0, 1
+	    lw	   $a0, 20($t2)
+		syscall
+		
+        li     $v0, 10
+        syscall
+        
+        .data
+integers:
+		.word 1 2 3 4 5 6 7 8 
+address_of_six: 
+		.word 0
+NEWLINE:	
+		.asciiz "\n"
+                
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

@@ -1,0 +1,23 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 8B}
+
+\begin{document}
+\topmatter
+
+Q1. 
+Write a MIPS program gets a string from the user 
+(assume a maximum length of 100), store the string in the data segment, 
+for each character in the data segment, if the character is a lowercase 
+letter, it is replaced by its uppercase. 
+Finally the program prints the resulting string in the data segment.
+
+Test the following inputs: 
+\verb!"hello world", "hello World", "helLO 123 world"!
+
+Email me (\verb!yliow@ccis.edu!) your code as an attachment. 
+The subject line of your email should be like this: 
+\verb!"ciss360 Alan Turing q08b"!.
+
+\end{document}

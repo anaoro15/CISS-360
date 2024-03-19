@@ -1,0 +1,59 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Write a MIPS program gets a string x from the user 
+(assume a maximum length of 100), 
+store the string in the data segment, 
+get an integer $i$ from the user, and print the ASCII code 
+(an integer value) of the $i$-th character of $x$. 
+(Note: The index starts with 0. 
+So if $i$ is 1, 
+I mean the second character of $x$.)
+
+\ANSWER
+\begin{answercode}
+        .text
+        .globl main
+
+main:
+        # get input string from the user
+        li    $v0, 8
+        la    $a0, input_string
+        li    $a1, 100  # maximum length of the string
+        syscall
+
+        # get integer i from the user
+        li    $v0, 5
+        syscall
+        move  $t0, $v0  # i is in t0
+
+        # calculate the address of the i-th character in the string
+        la    $t1, input_string
+        add   $t1, $t1, $t0  # add i to the base address
+
+        # load the ASCII value of the i-th character
+        lb    $t2, 0($t1)    # load a character from input_string at address t1
+
+        # print the ASCII value of the i-th character
+        move  $a0, $t2       # load the ASCII value into a0
+        li    $v0, 1
+        syscall
+
+        li    $v0, 10
+        syscall
+
+        .data
+input_string: .space 100
+
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

@@ -1,0 +1,93 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Write a MIPS program that gets integers $x, y, z$ 
+from the user and if $x$ is 0, 
+store $y, z, y + z$ in the data segment 
+(starting at the beginning of course). 
+Otherwise store $y, z, y - z$.
+Do NOT hardcode memory addresses -- use labels.
+You will need to use the if-else method of writing MIPS code in my notes
+and several versions were mentioned.
+You MUST use the correct version that I mentioned in the notes and in class.
+
+\textsc{Test 1} \\
+Console:
+\begin{console}[fontsize=\footnotesize,commandchars=\\\{\}]
+\underline{0}
+\underline{2}
+\underline{3}
+\end{console}
+Data segment:
+\begin{console}[fontsize=\footnotesize]
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000002 0x00000003 0x00000005 0x00000000
+\end{console}
+ 
+\textsc{Test 2} \\
+Console:
+\begin{console}[fontsize=\footnotesize,commandchars=\\\{\}]
+\underline{5}
+\underline{4}
+\underline{1}
+\end{console}
+Data segment:
+\begin{console}[fontsize=\footnotesize]
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000004 0x00000001 0x00000003 0x00000000
+\end{console}
+\ANSWER
+\begin{answercode}
+
+          .text
+          .globl main
+
+main:     li     $v0, 5           # get x from user
+          syscall
+	  move	 $t1, $v0         # t1 has value of x
+
+          la     $t0, if_else     # &if_else is in t0
+
+          # get y and store it in t2
+          li     $v0, 5           # get y from user
+          syscall
+	  move	 $t2, $v0         # t2 has value of y
+          sw     $t2, 0($t0)      # y stored in first place
+         
+          # get z and store it in t3
+          li     $v0, 5           # get z from user
+          syscall
+	  move 	 $t3, $v0         # t3 has value of z
+          sw     $t3, 4($t0)      # z stored in second place
+
+          # if-else
+          bne    $t1, $zero, else # if t1 != x goto else
+          add    $t2, $t2, $t3    # t2 = y + z
+          sw     $t2, 8($t0)      # y + z is in the third place
+          j      exit
+else:     sub    $t2, $t2, $t3    # t2 = y - z
+          sw     $t2, 8($t0)      # y - z is in the third place
+          
+exit:     li    $v0, 1
+          lw    $a0, 8($t0)
+          syscall
+          
+          li     $v0, 10
+          syscall
+          
+          .data
+if_else:  .word 0
+                    
+\end{answercode}
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

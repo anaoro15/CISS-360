@@ -1,0 +1,23 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+You are given the following part of a MIPS program:
+\includesourcenonumbers{a.s}
+
+What is the value in \verb!$s2!?
+\\   
+\ANSWER
+\begin{answercode}
+13
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

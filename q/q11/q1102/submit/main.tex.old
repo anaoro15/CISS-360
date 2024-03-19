@@ -1,0 +1,81 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Complete the following SPIM program that gets two integers 
+$x$ and $y$ from the user and prints the minimum of
+the absolute values of $x$ and $y$: $\min(|x|, |y|)$.
+You need to write two functions: 
+\verb!min! (the minimum function) and
+\verb!abs_int! (the absolute value function for integers).
+Your program must execute in PCSpim (of course).
+(There's a \verb!*.s! file you can use.
+But your answer must be inserted into the \verb!main.tex! file.)
+\\
+\ANSWER
+\begin{answercode}
+	.text
+	.globl main
+	
+read_int:
+	li	$v0, 5
+	syscall
+	jal     $ra
+
+abs_int:
+	bltz   $a2, is_negative
+	jal     $ra
+		
+is_negative:
+	neg     $a2, $a2
+	jal	$ra
+		
+min:	
+	bgt     $a1, $a0, x_is_min
+	move    $v0, $a1  	  # y is min 
+	jal	$ra
+		
+x_is_min: 
+	move    $v0, $a0  	  # x is min
+	jal	$ra
+
+print_int:
+	li	$v0, 1
+	syscall
+	jal	$ra
+		
+main:   jal    read_int       # Get int x from user
+        move   $s0, $v0       # and store in s0
+
+        jal    read_int       # Get int y from user 
+                              # and store in v0
+
+        move   $a0, $s0       # a0 = s0
+        move   $a1, $v0       # a1 = v0
+		
+	move   $a2, $a0
+	jal    abs_int	      # get absolute value of x 
+        move   $a0, $a2
+		
+	move   $a2, $a1
+	jal    abs_int	      # get absolute value of x 
+        move   $a1, $a2
+		
+	jal    min            # v0 = min(a0, a1)
+
+        move   $a0, $v0       # a0 = v0
+        jal    print_int      # print_int(a0)
+
+        li     $v0, 10
+        syscall
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

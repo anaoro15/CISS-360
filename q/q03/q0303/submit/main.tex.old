@@ -1,0 +1,87 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Write a MIPS program that 
+obtains one integer $x$ from the user 
+and stores $x$, $2x$, $4x$, $8x$, $16x$, $32x$ in the data segment
+(at the beginning of the data segment of course).
+Do NOT use mul or mult.
+Next get an integer $y$ from the user, 
+load $8x$ from the data segment,
+compute and print $8x + y$ and store this value at the word after $32x$.
+
+Use \verb!a!-- and \verb!v!--registers only for input/output. 
+For instance for input, once the input is performed, move
+the input to an \verb!s!--register.
+For output, move the value from an \verb!s!--register to an \verb$a$--register.
+
+Do not use \verb!t!-registers. 
+For your computation, use only \verb!s!-registers. 
+Use the \textit{least} number of \verb!s!--registers.
+In fact, you only need \verb!$s0! and \verb!$s1!.
+
+Do \textit{not} hardcode addresses but use \textit{one} label instead.
+\\
+\textsc{Answer:}\vspace{-2mm}
+\begin{answercode}
+           .text
+           .globl main
+           
+main:      li   $v0, 5           # get x from user
+           syscall
+           move $s0, $v0         # move x to s0
+
+           la   $v0, x           # v0 holds address of x
+           sw   $s0, 0($v0)      # store x
+           
+           # calculate and store 2x, 4x, 8x, 16x, 32x
+           add  $s1, $s0, $s0    # 2x
+           sw   $s1, 4($v0)      # store 2x into x + 4                               
+           add  $s1, $s1, $s1    # 4x
+           sw   $s1, 8($v0)      # store 4x into x + 8
+
+           add  $s1, $s1, $s1    # 8x
+           sw   $s1, 12($v0)     # store 4x int x + 12
+
+           add  $s1, $s1, $s1    # 16x
+           sw   $s1, 16($v0)     # store 16x in x + 16
+           
+           add  $s1, $s1, $s1    # 32x
+           sw   $s1, 20($v0)     # store 32x in x + 20
+
+           la   $s0, 0($v0)      # store the &x in s0
+           
+           # get integer y from user
+           li   $v0, 5
+           syscall
+
+           # compute 8x + y and store in s1
+           lw   $s1, 12($s0)    # 8x is in s1
+           add  $s1, $s1, $v0   # 8x + y
+           sw   $s1, 24($s0)    # store 8x + y in x + 24
+
+           # output the result
+           move $a0, $s1        # move the result to a0
+           li   $v0, 1
+           syscall
+           
+           # exit the program
+           li   $v0, 10
+           syscall
+
+           .data
+x:         .word 0  # store x, 2x, 4x, 8x, 32x, 8x + y
+
+
+\end{answercode}
+
+
+\newpage
+\input{instructions.tex}
+\end{document}

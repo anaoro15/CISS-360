@@ -1,0 +1,115 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+In each of the following questions, you must 
+write a complete program that can run in PCSPIM.
+If your code does not run properly in my PCSPIM (hangs or crashes or
+run in an infinite loop) or the output is incorrect,
+you will get a 0 for a test case.
+\begin{myenum}
+\li For input and output, use \verb!$a0!, \verb!$v0!.
+\li For computations use \verb!$a0!, \verb!$v0!, and the t-registers
+beginning with \verb!$t0!.
+\end{myenum}
+Make your code as efficient as possible.
+This means use the least number of instructions/pseudoinstructions/syscalls
+and the least number of t-registers.
+
+%-------------------------------------------------------------------------------
+\nextq
+Write a PCSPIM program that reads three
+integers $x$, $y$, and $z$ from the keyboard 
+and prints the value
+\[
+x + y - z
+\]
+in the console window.
+\\
+\ANSWER
+\begin{answercode}.
+
+        .text
+        .globl main
+        
+main:   li     $v0, 5           # read int x and store it in $a0
+        syscall
+        move   $a0, $v0
+        
+        li     $v0, 5           # read int y and store it in $t0
+        syscall
+        move   $t0, $v0
+
+        li     $v0, 5           # read int z and store it in $v0
+        syscall
+        
+        add    $a0, $a0, $t0    # a0 = a0 + t0 = x + y
+        sub    $a0, $a0, $v0    # a0 = a0 - v0 = x + y - z
+        li     $v0, 1
+        syscall
+
+        li      $v0, 10
+        syscall
+        
+\end{answercode}
+Number of instructions/pseudoinstructions/syscalls \dotfill \answerbox{5} \\
+Number of t-registers used \dotfill \answerbox{1}
+
+%-------------------------------------------------------------------------------
+\nextq
+Write a PCSPIM program that reads three
+integers $x$, $y$, and $z$ from the keyboard 
+and prints the value
+\[
+x + y - 4       z
+\]
+in the console window. 
+\\
+\ANSWER
+\begin{answercode}
+
+        .text
+        .globl main
+main:
+        li      $v0, 5
+        syscall
+        move    $a0, $v0
+
+        li      $v0, 5
+        syscall
+        move    $t0, $v0
+
+        li      $v0, 5
+        syscall
+
+        add     $a0, $a0, $t0
+        addi    $a0, $a0, -4
+	move	$t0, $v0
+        li      $v0, 1
+        syscall
+
+        li      $v0, 4
+        la      $a0, TAB
+        syscall
+
+	li	$v0, 1
+	move	$a0, $t0
+	syscall
+
+        li      $v0, 10
+        syscall
+        
+        .data
+TAB: 	.asciiz "\t"
+
+\end{answercode}
+Number of instructions/pseudoinstructions/syscalls \dotfill \answerbox{7} \\
+Number of t-registers used \dotfill \answerbox{1}
+
+%-------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

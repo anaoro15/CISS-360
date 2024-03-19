@@ -1,0 +1,88 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Write a MIPS program gets an array of integers from the user and store
+the integers in the data segment. 
+The array ends when the user enters $-1$;
+$-1$ is not part of the list.
+For instance if the array of integers is $4, 2, 3, 5, 7$, the user enters
+$4, 2, 3, 5, 7, -1$.
+(You may assume that the the list contains at least one integer.)
+The program then stores the size of the array
+and the values of the array in the data segment (at the beginning).
+
+The program then scans the array of integers and prints the minimum value
+of the array.
+
+For instance if the users enter $4, 2, 3, 5, 7, -1$, then
+$5, 4, 2, 3, 5, 7$ are stored in the data segment and $2$ is printed.
+
+Your code should be similar to a C/C\texttt{++} program that uses a
+pointer to scan 
+the array of integers instead of an index variable.
+
+\ANSWER
+\begin{answercode}
+       		.text
+        .globl main
+
+main:
+        # get array of integers from the user
+        addi  $t0, $zero, -1            # initialize index to 0
+	la    $t1, numbers          #load address of numbers
+input_loop:
+        li    $v0, 5
+        syscall
+	move  $s0, $v0
+        beq   $s0, $t0, exit_loop    # terminate when -1 entered
+        sw    $s0, 0($t1)           # store  the input value in the array at current index
+        addi  $t2, $t2, 1           # increment the size
+        addi  $t1, $t1, 4           # move to the next element
+        j     input_loop
+
+exit_loop:
+        # find and print the minimum value
+        la     $t1, numbers         # reset address
+        addi   $t2, $t2, -1	    # up to n - 1
+        lw     $t3, 0($t1)          # load the first element of the array
+        move   $t4, $t3             # initialize min with the first element
+        addi   $t1, $t1, 4          # move to the next element
+
+find_min_loop:
+        beq    $t2, $zero, print_min  # exit when the entire array is scanned
+
+        lw     $t3, 0($t1)          # load the current element of the array
+        blt    $t3, $t4, update_min # if t3 < t4, update min
+
+        addi   $t1, $t1, 4          # move to the next element
+        addi   $t2, $t2, -1         # decrement the counter
+        j      find_min_loop
+
+update_min:
+        move    $t4, $t3        # move t3 to t4
+        addi    $t1, $t1, 4
+        addi    $t2, $t2, -1
+        j       find_min_loop
+
+print_min:
+        li      $v0, 1
+        move    $a0, $t4
+        syscall
+
+        li      $v0, 10
+        syscall
+        
+        .data
+numbers: .word 0
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

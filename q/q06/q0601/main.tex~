@@ -1,0 +1,35 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 10A}
+
+\begin{document}
+\topmatter
+
+Q1. 
+Write a MIPS program gets an array of integers from the user and store
+the integers in the data segment. 
+The array ends when the user enters $-1$;
+$-1$ is not part of the list.
+For instance if the array of integers is $2, 3, 5, 7$, the user enters
+$2, 3, 5, 7, -1$.
+(You may assume that the the list contains at least one integer.)
+The program then stores the size of the array in the data segment immediately
+after the array.
+The program then scans the array of integers, computes
+the minimum value in the array, stores it in the data segment immediately
+after the size, and prints the minimum.
+
+For instance if the users enter $2, 3, 5, 7, -1$, then $2, 3, 5, 7, 4, 2$ are 
+stored in the data segment and $2$ is printed.
+
+Your code should be similar to a C/C++ program that uses a pointer to scan 
+the array of integers instead of an index variable.
+(If you do not know what I'm talking about, then ... {\it obviously you have
+not been studying the notes!})
+
+Email me (\verb!yliow@ccis.edu!) your code as an attachment. 
+The subject line of your email should be like this: 
+\verb!"ciss360 Alan Turing q10a"!.
+
+\end{document}

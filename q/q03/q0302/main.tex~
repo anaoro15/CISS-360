@@ -1,0 +1,41 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 4B (Solution)}
+
+\begin{document}
+\topmatter
+
+
+Q1. The following MIPS program obtains two integers from the user, 
+say $x$ and $y$, and stores $x$, $y$ and $x+y$ in the data segment. 
+
+
+TEST 1 \\
+Console
+\begin{console}
+3
+2
+\end{console}
+Data segment
+{\footnotesize
+\begin{console}
+[0x10010000]		        0x00000003  0x00000002  0x00000005  0x00000000
+\end{console}
+}
+
+TEST 2 \\
+Console
+\begin{console}
+1
+5
+\end{console}
+{\footnotesize
+Data segment
+\begin{console}
+[0x10010000]		        0x00000001  0x00000005  0x00000006  0x00000000
+\end{console}
+}
+
+
+\end{document}

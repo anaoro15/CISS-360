@@ -1,0 +1,69 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Write a MIPS program that places the following integers in the data segment 
+(start at the beginning, starting at 0x10010000): 
+1, 2, 3, 4, 5, 6, 7, 8. 
+Get an integer $x$ from the user and place $x$ in your data segment as the 
+first integer 
+(i.e. where the value is 1). 
+Get another integer $y$ from the user and place $y$ in your data segment as 
+the second integer (i.e., where the value is 2). 
+Read the first three integers from the data segment, 
+add them, and put the sum at the fourth word in the data segment.
+
+Do NOT hardcode any address values; you must use labels.
+
+\textsc{Answer:}
+\begin{answercode}
+		.text
+        .globl main
+
+main:   
+	la     $t0, integers                # load the address of the label into t0
+		
+        li     $v0, 5				# get x from user
+        syscall
+        sw     $v0, 0($t0)			# replace 1 with x
+
+        li     $v0, 5				# get y from user
+        syscall
+        sw     $v0, 4($t0)			# replace 2 with y
+
+	lw     $t1, 0($t0)			# store x in t1
+	lw     $t2, 4($t0)			# store y in t2
+	lw     $t3, 8($t0)			# store third integer in t3
+		
+	add    $t1, $t1, $t2                    # t1 = x + y
+	add    $t1, $t1, $t3                    # t1 = x + y + 3
+	sw     $t1, 12($t0)			# sum is in the fourth place
+		
+	li     $v0, 1
+        lw     $a0, 12($t0)			# print the sum
+	syscall
+		
+	li     $v0, 4
+	la     $a0, NEWLINE
+        syscall
+		
+	li     $v0, 10
+        syscall
+        
+        .data
+integers:
+	.word 1 2 3 4 5 6 7 8 
+NEWLINE:	
+	.asciiz "\n"
+		
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

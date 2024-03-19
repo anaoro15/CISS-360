@@ -1,0 +1,40 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 02-08}
+
+\newcommand\xxx[1] {
+  \boxed{
+    \text{{\tt #1}}
+  }
+}
+
+\begin{document}
+\topmatter
+
+Write your name in the space provided above 
+ and return this handout to me at the end of the quiz.
+
+
+Q1. [4 points]
+
+Write a PCSPIM program that reads three
+integers $x$, $y$, and $z$ from the keyboard 
+and prints the value
+\[
+x + y - z
+\]
+in the console window.
+Hey ... I say a program, not a code fragment or a bunch of instructions.
+It must be a complete program that can run in PCSPIM.
+If your code does not run in my PCSPIM, you will get a 0.
+
+Send your code as an attachment to
+\verb!yliow.submit@gmail.com! using a subject line of the
+form \lq\lq ciss360 q02-08''
+For verification, 
+make sure you include yourself in your email.
+
+
+
+\end{document}

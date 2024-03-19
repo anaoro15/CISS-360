@@ -1,0 +1,104 @@
+#=====================================================================
+#
+# Name: Ana Oro
+# File: a02q01
+# Class: COSC360
+#
+#=====================================================================
+# INPUT:
+ # a, b, c, d
+ # REGISTER ASSOCIATION:
+ # $s0 = a
+ # $s1 = b
+ # $s3 = c
+ # $s4 = d
+ # TEMPORARY REGISTERS USED:
+ # $t0
+ # OUTPUT:
+ # $s0 = 2 * a - c - d
+ # $s1 = b
+ # $s3 = c
+ # $s4 = d
+#=====================================================================
+        .text
+	.globl main
+
+#=====================================================================
+#       text segment
+#=====================================================================
+
+main:	
+	li	 $v0, 5		# get a and store in s0
+	syscall
+	move	$s0, $v0
+	
+	li	 $v0, 5		# get b and store in s1
+	syscall
+	move	$s1, $v0
+
+	li	 $v0, 5		# get c and store in s3
+	syscall
+	move	$s3, $v0
+	
+	li	 $v0, 5		# get d and store in s4
+	syscall
+	move	$s4, $v0
+        
+#======================================================================
+# computation with $s0, $s1, $s3, $s4
+#======================================================================
+
+                        # s0 = a
+                        # s1 = b
+                        # s3 = c
+                        # s4 = d
+add $s0, $s0, $s0       # s0 = s0 + s0 = 2a
+sub $t0, $s0, $s3       # t0 = s0 - s3 = 2 * a - c
+sub $s0, $t0, $s4       # s0 = t0 - d = 2 * a - c - d
+
+
+#======================================================================
+# printing a, b, c, d and newlines
+#======================================================================
+
+        li 	$v0, 1		# print int $s0
+	move	$a0, $s0
+	syscall
+	
+	li	$v0, 4		# print newline
+	la	$a0, NEWLINE
+	syscall
+
+	li	$v0, 1		# print int $s1
+	move	$a0, $s1
+	syscall
+	
+	li	$v0, 4		# print newline
+	la	$a0, NEWLINE
+	syscall
+
+	li 	$v0, 1		# print int $s3
+	move	$a0, $s3
+	syscall
+	
+	li	$v0, 4		# print newline
+	la	$a0, NEWLINE
+	syscall
+
+	li	$v0, 1		# print int $s4
+	move	$a0, $s4
+	syscall
+	
+	li	$v0, 4		# print newline
+	la	$a0, NEWLINE
+	syscall
+
+	li	$v0, 10		# exit
+	syscall
+        
+#=======================================================================
+#	data segemnt
+#=======================================================================
+
+        .data
+NEWLINE: .asciiz "\n"

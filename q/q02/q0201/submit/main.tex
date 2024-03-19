@@ -1,0 +1,92 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%-------------------------------------------------------------------------------
+\nextq
+Write a MIPS instruction or pseudo-instruction to
+store the integer 42 in register \verb!$s0!.
+\\
+\ANSWER
+\begin{answercode}
+li      $s0, 42
+\end{answercode}
+
+%-------------------------------------------------------------------------------
+\nextq
+Write a MIPS instruction or pseudo-instruction to
+store the integer 1 in register \verb!$t0!.
+\\
+\ANSWER
+\begin{answercode}
+li      $t0, 1
+\end{answercode}
+
+%-------------------------------------------------------------------------------
+\nextq
+Write a MIPS instruction or pseudo-instruction to store the integer sum of
+the contents of \verb!$s0! and \verb!$t0! in register \verb!$s1!.
+\\
+\ANSWER
+\begin{answercode}
+add     $s1, $s0, $t0
+\end{answercode}
+
+%-------------------------------------------------------------------------------
+\nextq
+Write a MIPS instruction or pseudo-instruction to
+copy the contents of \verb!$s0! to \verb!$t1!.
+\\
+\ANSWER
+\begin{answercode}
+move    $t1, $s0
+\end{answercode}
+
+%-------------------------------------------------------------------------------
+The next few questions refer to the following MIPS code fragment:
+\begin{console}
+li     $s0, 1
+li     $t0, 3
+add    $s0, $s0, $s0
+add    $s1, $s0, $t0
+\end{console}
+
+%------------------------------------------------------------------------------
+\nextq
+What is the value of \verb!$s0! at the end of the above code?
+\answerbox{2}
+
+%------------------------------------------------------------------------------
+\nextq
+What is the value of \verb!$s1! at the end of the above code?
+\answerbox{5}
+
+%------------------------------------------------------------------------------
+\nextq
+What is the value of \verb!$t0! at the end of the above code?
+\answerbox{3}
+
+%------------------------------------------------------------------------------
+\nextq
+Write MIPS instructions or pseudo-instructions to swap the values of register 
+\verb!$s0! and 
+\verb!$s1!. 
+You must use the least number of temporary 
+\verb!t!-registers  
+Do not use any other registers.
+(Hint: You only need one temporary \verb!t!-register.)
+\\
+\ANSWER
+\begin{answercode}
+move    $t0, $s0
+move    $s0, $s1
+move     $s1, $t0
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

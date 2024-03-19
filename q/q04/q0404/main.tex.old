@@ -1,0 +1,80 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+Write a MIPS program that gets $n$ from the user and stores the first 
+$n + 2$ Fibonacci numbers in the data segment. 
+For instance if the user enters 3, 
+the first 3 + 2 = 5 Fibonacci stored in the numbers are 
+\[
+1, 1, 2, 3, 5
+\]
+\textsc{Test 1}\\
+Console
+\begin{console}[fontsize=\footnotesize,commandchars=\\\{\}]
+\underline{3}
+\end{console}
+Data segment
+\begin{console}[fontsize=\footnotesize,commandchars=\\\{\}]
+	DATA
+[0x10000000]...[0x10010000]  0x00000000
+[0x10010000]                 0x00000001  0x00000001  0x00000002  0x00000003
+[0x10010010]                 0x00000005  0x00000000  0x00000000  0x00000000
+\end{console}
+\ANSWER
+\begin{answercode}
+        .text
+        .globl main
+
+main:
+        # get n from user
+        li    $v0, 5
+        syscall
+
+        addiu $a1, $v0, 2   # n + 2
+
+        la    $s0, fibonacci
+        
+        # calculate and store Fibonacci numbers
+
+        li    $t0, 2        # initialize loop counter
+        # starting from the third Fibonacci number
+        
+loop:   beq   $t0, $a1, exit  # EXIT when n + 2 reached         
+        lw    $t2, 0($s0)    # load the first element in the sequence
+        lw    $t3, 4($s0)    # load the second element in the sequence
+        add   $t4, $t2, $t3  # calculate the next element
+        sw    $t4, 8($s0)    # store it 
+
+        addi   $s0, $s0, 4   # move to the next element
+        addi   $t0, $t0, 1   # increment loop counter   
+        j     loop
+
+exit:
+		addi 	$a1, $a1, -1   # last element
+		add		$a1, $a1, $a1
+		add		$a1, $a1, $a1  # n + 2 + 2 * 4 (bytes)
+        la      $s0, fibonacci # reset the address
+        add     $s0, $s0, $a1  # last element
+        
+        li      $v0, 1        # print last element for checking
+        lw      $a0, 0($s0)
+        syscall
+        
+        li     $v0, 10
+        syscall
+        
+        .data
+fibonacci: .word 1 1   # initialize first two
+
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

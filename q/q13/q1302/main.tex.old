@@ -1,0 +1,89 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{aoro1@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+%------------------------------------------------------------------------------
+\nextq
+The \verb!sum(a, b)! returns the sum of integers from \verb!a! to \verb!b - 1!.
+For instance \verb!sum(3, 5)! is \verb!3 + 4 + 5!, i.e. \verb!12!.
+Of course you can implement this easily with a loop:
+\begin{console}[fontsize=\footnotesize]
+int sum(int a, int b)
+{
+    int s = 0;
+    for (int i = a; i < b; i++)
+    {
+        s += i;
+    }
+    return s;
+}
+\end{console}
+However this can also be implemented recursively:
+\begin{console}[fontsize=\footnotesize]
+int sum(int a, int b)
+{
+    if (a >= b)
+    {
+        return 0;
+    }
+    else
+    {
+        return a + sum(a + 1, b);
+    }
+}
+\end{console}
+Write a MIPS program implementing the recursive version of the sum function.
+\\
+\ANSWER
+\begin{answercode}
+        
+        .text
+        .globl main
+sum_exclude_b:
+	addi    $sp, $sp, -8
+        sw      $ra, 4($sp)
+        sw      $a0, 0($sp)
+
+        # Base case: if a >= b, return 0
+        bge     $a0, $a1, base_case
+		
+        # Recursive case: 
+        addi    $a0, $a0, 1		# a = a + 1
+	move	$a1, $a1 
+		
+        jal     sum_exclude_b		# call sum recursively
+		
+	lw      $t0, 0($sp)		# retrieve a from stack
+	add	$v0, $t0, $v0 		# v0 = a + result
+
+	# function epilogue
+	lw      $ra, 4($sp)
+    	addi	$sp, $sp, 8
+	jr	$ra
+		
+base_case:
+        li	$v0, 0
+	lw	$ra, 4($sp)
+	addi	$sp, $sp, 8
+	jr      $ra
+
+main:   li      $v0, 5     # read int and store in a0
+        syscall
+        move    $a0, $v0
+        li      $v0, 5     # read int and store in a1
+        syscall
+        move    $a1, $v0
+        jal     sum_exclude_b      # v0 = sum(a0, a1)
+        move    $a0, $v0     # print int v0
+        li      $v0, 1
+        syscall
+        li      $v0, 10     # exit
+        syscall
+\end{answercode}
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

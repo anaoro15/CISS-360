@@ -1,0 +1,63 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{jdoe5@cougars.ccis.edu} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+\nextq
+Complete the following MIPS program 
+so that it obtains two integers from the user, 
+say $x$ and $y$, and stores $x$, $y$ and $x+y$ in the data segment. 
+Use \verb!a!-- and \verb!v!--registers only for I/O.
+Besides that use only \verb!s!--registers.
+Use at most 3 \verb!s!--registers: 
+\verb!$s0!,
+\verb!$s1!, and
+\verb!$s2!.
+Make your program as short as possible.
+\\
+\textsc{Answer:}\vspace{-2mm}
+\begin{answercode}
+           .text
+
+main:      la $s0, 0x10010000
+
+\end{answercode}
+
+(TURN PAGE)
+\newpage
+
+%------------------------------------------------------------------------------
+\nextq
+Write a MIPS program that 
+obtains one integer from the user, say $x$,
+and stores $x$, $2x$, $4x$, $8x$, $16x$, $32x$ in the data segment
+(at the beginning of the data segment of course).
+Do NOT use mul or mult.
+Next get an integer from the user, say $y$, 
+load $8x$ from the data segment,
+compute and print $8x + y$ and store this value at the word after $32x$.
+Do NOT use mul or mult.
+Use \verb!a!-- and \verb!v!--registers only for input/output. 
+For instance for input, once the input is performed, move
+the input to an \verb!s!--register.
+For output, move the value from an \verb!s!--register to an \verb!a!--register.
+Do not use \verb!t!-registers. 
+For your computation, use only \verb!s!-registers. 
+Use the \textit{least} number of \verb!s!--registers.
+(Hint: You only need \verb!$s0! and \verb!$s1!.)
+Do \textit{not} hardcode addresses but use \textit{one} label instead.
+\\
+\ANSWER
+\begin{answercode}
+           .text
+ 
+main:      
+
+\end{answercode}
+
+%------------------------------------------------------------------------------
+\newpage
+\input{instructions.tex}
+\end{document}

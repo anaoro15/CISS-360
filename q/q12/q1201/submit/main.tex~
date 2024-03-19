@@ -1,0 +1,47 @@
+\input{myquizpreamble.tex}
+\input{ciss360.tex}
+\input{yliow}
+\renewcommand\TITLE{Quiz 12A}
+
+\begin{document}
+\topmatter
+
+Q1. The following fragment of function
+\verb!main! needs to save and restore certain registers:
+\begin{Verbatim}[frame=single]
+main:   li     $t0, 1         
+        li     $s1, 2
+        add    $a0, $s2, $s1
+        add    $t3, $t0, $s2
+        [what to save?]      
+        jal    g
+        [what to restore?]
+        mul    $s2, $t0, $v0
+        sub    $s0, $t3, $s0
+        add    $s0, $a0, $t3
+\end{Verbatim}
+Name the registers that must be saved and restored.
+Only include the relevant ones.
+
+ANSWER: \drawbox{4}{0.3}
+
+Q2. The following fragment of function
+\verb!f! needs to save and restore certain registers:
+\begin{Verbatim}[frame=single]
+f:      [what to save?]
+        add    $t0, $a0, $a0
+        add    $t1, $a0, $a1
+        add    $s0, $t0, $t1
+        sub    $s1, $s0, $t1
+        div    $s1, $s0
+        mfhi   $a0
+        add    $v0, $a0, $s1
+        [what to restore?]
+        jr     $ra
+\end{Verbatim}
+Name the registers that must be saved and restored.
+Only include the relevant ones.
+
+ANSWER: \drawbox{4}{0.3}
+
+\end{document}
